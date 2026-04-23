@@ -1,0 +1,16 @@
+/home/lastico/Downloads/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.csproj.AssemblyReference.cache
+/home/lastico/Downloads/noc-system-net10/noc-system/backend/obj/Debug/net10.0/rpswa.dswa.cache.json
+/home/lastico/Downloads/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.GeneratedMSBuildEditorConfig.editorconfig
+/home/lastico/Downloads/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.AssemblyInfoInputs.cache
+/home/lastico/Downloads/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.AssemblyInfo.cs
+/home/lastico/Downloads/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.csproj.CoreCompileInputs.cache
+/home/lastico/Downloads/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.MvcApplicationPartsAssemblyInfo.cs
+/home/lastico/Downloads/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.MvcApplicationPartsAssemblyInfo.cache
+/media/lastico/A47C4E7F7C4E4C6C/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.csproj.AssemblyReference.cache
+/media/lastico/A47C4E7F7C4E4C6C/noc-system-net10/noc-system/backend/obj/Debug/net10.0/rpswa.dswa.cache.json
+/media/lastico/A47C4E7F7C4E4C6C/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.GeneratedMSBuildEditorConfig.editorconfig
+/media/lastico/A47C4E7F7C4E4C6C/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.AssemblyInfoInputs.cache
+/media/lastico/A47C4E7F7C4E4C6C/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.AssemblyInfo.cs
+/media/lastico/A47C4E7F7C4E4C6C/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.csproj.CoreCompileInputs.cache
+/media/lastico/A47C4E7F7C4E4C6C/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.MvcApplicationPartsAssemblyInfo.cs
+/media/lastico/A47C4E7F7C4E4C6C/noc-system-net10/noc-system/backend/obj/Debug/net10.0/OltApi.MvcApplicationPartsAssemblyInfo.cache
