@@ -62,6 +62,8 @@ public class LogsController(AppDbContext db) : ControllerBase
         l.DeviceId, l.Device.Name,
         l.ButtonId, l.Button?.Label,
         l.Command, l.Status,
-        l.DurationMs, l.ErrorMsg, l.ExecutedAt
+        l.DurationMs, l.ErrorMsg,
+        l.RawOutput,
+        l.ExecutedAt
     );
 }

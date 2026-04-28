@@ -11,7 +11,7 @@ namespace OltApi.Controllers;
 [ApiController, Route("api/buttons"), Authorize]
 public class ButtonsController(AppDbContext db) : ControllerBase
 {
-    //  POST /api/buttons — buat button (admin only) 
+    // ── POST /api/buttons (admin) ────────────────────────────────────────────
     [HttpPost, Authorize(Roles = "admin")]
     public async Task<IActionResult> Create(ButtonRequest req)
     {
@@ -34,11 +34,10 @@ public class ButtonsController(AppDbContext db) : ControllerBase
             Description       = req.Description,
             CommandTemplate   = req.CommandTemplate,
             ParameterKeys     = req.ParameterKeys,
-            ExtraSteps        = req.ExtraStepsJson,
             ExpiresAt         = DateTime.UtcNow.AddHours(req.ExpiresInHours),
             SortOrder         = req.SortOrder,
-            CreatedAt         = DateTime.UtcNow,   
-            UpdatedAt         = DateTime.UtcNow,   
+            CreatedAt         = DateTime.UtcNow,
+            UpdatedAt         = DateTime.UtcNow,
         };
 
         db.Buttons.Add(btn);
@@ -47,15 +46,19 @@ public class ButtonsController(AppDbContext db) : ControllerBase
         return Ok(MapButton(btn, device, user));
     }
 
-    //  GET /api/buttons — semua button (admin only) 
+    // ── GET /api/buttons (admin) ─────────────────────────────────────────────
     [HttpGet, Authorize(Roles = "admin")]
-    public async Task<IActionResult> ListAll([FromQuery] int? userId, [FromQuery] int? deviceId)
+    public async Task<IActionResult> ListAll(
+        [FromQuery] int? userId,
+        [FromQuery] int? deviceId,
+        [FromQuery] bool includeInactive = false)
     {
         var q = db.Buttons
             .Include(b => b.Device)
             .Include(b => b.AssignedToUser)
             .AsQueryable();
 
+        if (!includeInactive) q = q.Where(b => b.IsActive);
         if (userId.HasValue)   q = q.Where(b => b.AssignedToUserId == userId.Value);
         if (deviceId.HasValue) q = q.Where(b => b.DeviceId        == deviceId.Value);
 
@@ -66,7 +69,7 @@ public class ButtonsController(AppDbContext db) : ControllerBase
         return Ok(result);
     }
 
-    //  GET /api/buttons/my — button milik teknisi (aktif + belum expired) 
+    // ── GET /api/buttons/my (user) ───────────────────────────────────────────
     [HttpGet("my")]
     public async Task<IActionResult> ListMy([FromQuery] int? deviceId)
     {
@@ -82,7 +85,6 @@ public class ButtonsController(AppDbContext db) : ControllerBase
 
         if (deviceId.HasValue) q = q.Where(b => b.DeviceId == deviceId.Value);
 
-        // Cek button mana yang sudah dieksekusi hari ini
         var today  = now.Date;
         var doneIds = await db.ActivityLogs
             .Where(l => l.UserId == uid
@@ -95,12 +97,12 @@ public class ButtonsController(AppDbContext db) : ControllerBase
 
         return Ok(btns.Select(b => new
         {
-            button    = MapButton(b, b.Device, b.AssignedToUser),
+            button     = MapButton(b, b.Device, b.AssignedToUser),
             done_today = doneIds.Contains(b.Id),
         }));
     }
 
-    //  GET /api/buttons/{id} 
+    // ── GET /api/buttons/{id} ────────────────────────────────────────────────
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
@@ -113,7 +115,7 @@ public class ButtonsController(AppDbContext db) : ControllerBase
         return Ok(MapButton(btn, btn.Device, btn.AssignedToUser));
     }
 
-    //  PATCH /api/buttons/{id} (admin only) 
+    // ── PATCH /api/buttons/{id} (admin) ──────────────────────────────────────
     [HttpPatch("{id}"), Authorize(Roles = "admin")]
     public async Task<IActionResult> Update(int id, ButtonRequest req)
     {
@@ -124,37 +126,54 @@ public class ButtonsController(AppDbContext db) : ControllerBase
 
         if (btn == null) return NotFound(new { message = "Button tidak ditemukan" });
 
-        btn.Label           = req.Label;
-        btn.Description     = req.Description;
-        btn.CommandTemplate = req.CommandTemplate;
-        btn.ParameterKeys   = req.ParameterKeys;
-        btn.ExtraSteps      = req.ExtraStepsJson;
-        btn.ExpiresAt       = DateTime.UtcNow.AddHours(req.ExpiresInHours);
-        btn.SortOrder       = req.SortOrder;
-        btn.UpdatedAt       = DateTime.UtcNow;
+        btn.DeviceId         = req.DeviceId;
+        btn.AssignedToUserId = req.AssignedToUserId;
+        btn.Label            = req.Label;
+        btn.Description      = req.Description;
+        btn.CommandTemplate  = req.CommandTemplate;
+        btn.ParameterKeys    = req.ParameterKeys;
+        btn.ExpiresAt        = DateTime.UtcNow.AddHours(req.ExpiresInHours);
+        btn.SortOrder        = req.SortOrder;
+        btn.UpdatedAt        = DateTime.UtcNow;
 
         await db.SaveChangesAsync();
+
+        // re-load relasi kalau Device/User diubah
+        await db.Entry(btn).Reference(b => b.Device).LoadAsync();
+        await db.Entry(btn).Reference(b => b.AssignedToUser).LoadAsync();
         return Ok(MapButton(btn, btn.Device, btn.AssignedToUser));
     }
 
-    //  DELETE /api/buttons/{id} (admin only) 
+    // ── DELETE /api/buttons/{id} ─────────────────────────────────────────────
     [HttpDelete("{id}"), Authorize(Roles = "admin")]
     public async Task<IActionResult> Delete(int id)
     {
         var btn = await db.Buttons.FindAsync(id);
         if (btn == null) return NotFound(new { message = "Button tidak ditemukan" });
-        btn.IsActive = false;
+        btn.IsActive  = false;
+        btn.UpdatedAt = DateTime.UtcNow;
         await db.SaveChangesAsync();
         return Ok();
     }
 
-    //  Helper 
+    // ── PATCH /api/buttons/{id}/activate ────────────────────────────────────
+    [HttpPatch("{id}/activate"), Authorize(Roles = "admin")]
+    public async Task<IActionResult> Activate(int id)
+    {
+        var btn = await db.Buttons.FindAsync(id);
+        if (btn == null) return NotFound(new { message = "Button tidak ditemukan" });
+        btn.IsActive  = true;
+        btn.UpdatedAt = DateTime.UtcNow;
+        await db.SaveChangesAsync();
+        return Ok();
+    }
+
+    // ─── Helper ──────────────────────────────────────────────────────────────
     static ButtonResponse MapButton(Button b, Device d, User u) => new(
         b.Id, b.DeviceId, d.Label, d.Name,
         b.AssignedToUserId, u.FullName,
         b.Label, b.Description,
         b.CommandTemplate, b.ParameterKeys,
-        b.ExtraSteps,
-        b.ExpiresAt, b.IsActive, b.SortOrder, b.CreatedAt
+        b.ExpiresAt, b.IsActive, b.SortOrder, b.CreatedAt, b.UpdatedAt
     );
 }

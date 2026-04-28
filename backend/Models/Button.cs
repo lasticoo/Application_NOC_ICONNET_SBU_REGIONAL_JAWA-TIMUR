@@ -12,7 +12,10 @@ public class Button
     public string?  Description         { get; set; }
     public string   CommandTemplate     { get; set; } = "";
     public string   ParameterKeys       { get; set; } = "";
+
+    /// DEPRECATED — tetap dipertahankan utk migrasi data lama, tidak dipakai engine baru.
     public string?  ExtraSteps          { get; set; }
+
     public DateTime ExpiresAt           { get; set; }
     public bool     IsActive            { get; set; } = true;
     public int      SortOrder           { get; set; } = 0;

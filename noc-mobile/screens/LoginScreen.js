@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../api/client';
+import { colors, radius, spacing } from '../theme';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -27,9 +28,10 @@ export default function LoginScreen({ navigation }) {
         ['token',    data.token],
         ['userId',   String(data.userId)],
         ['fullName', data.fullName],
+        ['username', username.trim()],
         ['role',     data.role],
       ]);
-      navigation.replace('Home');
+      navigation.replace('Main');
     } catch (err) {
       Alert.alert(
         'Login Gagal',
@@ -46,40 +48,38 @@ export default function LoginScreen({ navigation }) {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView contentContainerStyle={s.scroll} keyboardShouldPersistTaps="handled">
-        <View style={s.top}>
-          <Text style={s.appName}>NOC System</Text>
-          <Text style={s.appSub}>Teknisi Lapangan</Text>
+        <View style={s.brandBox}>
+          <Text style={s.iconText}>ICON+</Text>
+          <Text style={s.brandSub}>NOC ICONNET · Jawa Timur</Text>
         </View>
 
         <View style={s.card}>
-          <Text style={s.title}>Masuk</Text>
-          <Text style={s.sub}>Login dengan akun yang diberikan admin</Text>
+          <Text style={s.title}>Login</Text>
+          <Text style={s.sub}>Masuk dengan akun teknisi yang diberikan admin.</Text>
 
-          <View style={s.inputBox}>
-            <Text style={s.label}>Username</Text>
-            <TextInput
-              style={s.input}
-              placeholder="Masukkan username"
-              autoCapitalize="none"
-              autoCorrect={false}
-              value={username}
-              onChangeText={setUsername}
-              returnKeyType="next"
-            />
-          </View>
+          <Text style={s.label}>Username</Text>
+          <TextInput
+            style={s.input}
+            placeholder="Masukkan username"
+            placeholderTextColor="#bbb"
+            autoCapitalize="none"
+            autoCorrect={false}
+            value={username}
+            onChangeText={setUsername}
+            returnKeyType="next"
+          />
 
-          <View style={s.inputBox}>
-            <Text style={s.label}>Password</Text>
-            <TextInput
-              style={s.input}
-              placeholder="Masukkan password"
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
-              returnKeyType="done"
-              onSubmitEditing={login}
-            />
-          </View>
+          <Text style={s.label}>Password</Text>
+          <TextInput
+            style={s.input}
+            placeholder="Masukkan password"
+            placeholderTextColor="#bbb"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            returnKeyType="done"
+            onSubmitEditing={login}
+          />
 
           <TouchableOpacity
             style={[s.btn, loading && s.btnDisabled]}
@@ -88,8 +88,7 @@ export default function LoginScreen({ navigation }) {
           >
             {loading
               ? <ActivityIndicator color="#fff" />
-              : <Text style={s.btnTxt}>Masuk</Text>
-            }
+              : <Text style={s.btnTxt}>MASUK</Text>}
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -98,20 +97,19 @@ export default function LoginScreen({ navigation }) {
 }
 
 const s = StyleSheet.create({
-  root:       { flex: 1, backgroundColor: '#1e3a5f' },
-  scroll:     { flexGrow: 1, justifyContent: 'center', padding: 24 },
-  top:        { alignItems: 'center', marginBottom: 32 },
-  appName:    { fontSize: 32, fontWeight: 'bold', color: '#fff' },
-  appSub:     { fontSize: 14, color: '#a0c4e8', marginTop: 4 },
-  card:       { backgroundColor: '#fff', borderRadius: 20, padding: 28 },
-  title:      { fontSize: 24, fontWeight: 'bold', color: '#1e3a5f', marginBottom: 4 },
-  sub:        { color: '#888', fontSize: 13, marginBottom: 24 },
-  inputBox:   { marginBottom: 16 },
-  label:      { fontSize: 13, color: '#555', marginBottom: 6, fontWeight: '500' },
-  input:      { borderWidth: 1, borderColor: '#e0e0e0', borderRadius: 10,
-                padding: 14, fontSize: 15, backgroundColor: '#fafafa' },
-  btn:        { backgroundColor: '#1e3a5f', borderRadius: 12,
-                padding: 16, alignItems: 'center', marginTop: 8 },
-  btnDisabled:{ opacity: 0.6 },
-  btnTxt:     { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  root:        { flex: 1, backgroundColor: colors.primary },
+  scroll:      { flexGrow: 1, justifyContent: 'center', padding: spacing.xl },
+  brandBox:    { alignItems: 'center', marginBottom: spacing.xxl },
+  iconText:    { fontSize: 38, fontWeight: '900', color: '#fff', letterSpacing: 4 },
+  brandSub:    { color: '#fde2eb', fontSize: 12, marginTop: spacing.xs, letterSpacing: 1 },
+  card:        { backgroundColor: '#fff', borderRadius: radius.xl, padding: spacing.xl, elevation: 5 },
+  title:       { fontSize: 22, fontWeight: '700', color: colors.primaryDark },
+  sub:         { fontSize: 12, color: colors.textMute, marginBottom: spacing.lg, marginTop: 2 },
+  label:       { fontSize: 12, color: colors.text, marginBottom: 4, fontWeight: '600' },
+  input:       { borderWidth: 1, borderColor: colors.border, borderRadius: radius.md,
+                 padding: 14, fontSize: 14, marginBottom: spacing.md, backgroundColor: colors.bg },
+  btn:         { backgroundColor: colors.accent, borderRadius: radius.md,
+                 padding: 16, alignItems: 'center', marginTop: spacing.sm },
+  btnDisabled: { opacity: 0.6 },
+  btnTxt:      { color: colors.primaryDark, fontWeight: '900', fontSize: 15, letterSpacing: 2 },
 });
