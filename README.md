@@ -131,6 +131,18 @@ sejak v1, dan sekarang juga ditampilkan di admin web.
 > `dotnet run` pertama (`EnsureCreatedAsync`). Migration SQL hanya perlu dijalankan
 > kalau Anda upgrade dari v1.
 
+**Catatan untuk pengguna XAMPP:** binary `mysql` dari Ubuntu mencari socket di
+`/var/run/mysqld/mysqld.sock` sedangkan XAMPP pakai `/opt/lampp/var/mysql/mysql.sock`.
+Pakai client XAMPP saja:
+```bash
+sudo /opt/lampp/bin/mysql -u root noc_db < docs/migrations/2026-04-multi-vendor.sql
+# atau via TCP
+mysql -h 127.0.0.1 -P 3306 -u root noc_db < docs/migrations/2026-04-multi-vendor.sql
+```
+Migration ini pakai `ALTER TABLE … ADD COLUMN IF NOT EXISTS` (didukung MariaDB
+≥ 10.0.2 & MySQL ≥ 8.0.29) — tidak menyentuh `mysql.proc`, aman walau XAMPP
+belum di-`mysql_upgrade`.
+
 ---
 
 ## 5. Multi-Vendor Device Profile
