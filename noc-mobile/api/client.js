@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Ganti dengan IP laptop/server saat development
 // WiFi lokal: 'http://192.168.x.x:5006/api'
-const API_URL = 'http://172.168.8.210:5006/api';
+const API_URL = 'http://192.168.30.159:5006/api';
 
 const api = axios.create({
   baseURL: API_URL,

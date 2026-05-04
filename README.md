@@ -1,3 +1,4 @@
+
 # NOC OLT Management System
 
 Sistem manajemen OLT/FDT/FAT multi-vendor untuk NOC & teknisi lapangan
@@ -400,3 +401,7 @@ Di `App.js` saat boot, `forceMax()` request permission lalu set system brightnes
   pernah dipertukarkan.
 - `LastSeenAt` di-update via middleware setelah authorization, jadi tidak ada
   request anonim yang bisa "menghidupkan" status user.
+
+# Macro-Button-NOC
+Aplikasi dengan sistem pengecekan otomatis yang bisa dilakukan dimanapun sebagai teknisi(Mobile), dan admin(Web) untuk memanage button user
+
