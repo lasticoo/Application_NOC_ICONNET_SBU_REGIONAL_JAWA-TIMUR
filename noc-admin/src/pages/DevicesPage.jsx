@@ -23,6 +23,7 @@ const VENDOR_LABELS = {
   raisecom:  'Raisecom ROAP / ISCOM',
   zte:       'ZTE C320 / C300',
   fiberhome: 'FiberHome AN5516',
+  bdcom:     'BDCOM GP3600 / S2936F',
   nokia:     'Nokia ISAM 7360',
   mikrotik:  'MikroTik RouterOS',
   generic:   'Custom / Lainnya',
