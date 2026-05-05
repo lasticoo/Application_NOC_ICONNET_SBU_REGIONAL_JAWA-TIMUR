@@ -132,6 +132,23 @@ public static class VendorPresets
             Notes:               "MikroTik RouterOS — biasanya lewat SSH langsung. Tidak ada enable mode."
         ),
 
+        ["bdcom"] = new(
+            VerifyCommand:       "h {keyword}",
+            ConnectCommand:      "t {name}",
+            LoginUserPrompts:    "Username:,username:",
+            LoginPassPrompts:    "Password:,password:",
+            UserModePrompts:     ">",
+            EnableModePrompts:   "#",
+            EnableCommand:       "",
+            DisablePagingCommand:"terminal length 0",
+            PagingTrigger:       "--More--",
+            PagingResponse:      " ",
+            PreCommands:         "",
+            PostConnectTrigger:  "",
+            PostConnectResponse: "\n",
+            Notes:               "BDCOM GP3600 / S2936F. Langsung masuk privileged (#) setelah login, tidak butuh enable."
+        ),
+
         // Generic / custom — semua field default kosong, admin isi manual.
         ["generic"] = new(
             VerifyCommand:       "",

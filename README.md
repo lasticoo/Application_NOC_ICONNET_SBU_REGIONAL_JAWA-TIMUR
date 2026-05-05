@@ -52,7 +52,7 @@ Mobile App → Backend API → SSH ke jumphost (10.14.4.5) → Telnet/SSH ke OLT
 
 | Area | Sebelumnya | Sekarang |
 |------|-----------|----------|
-| Multi-vendor | Hardcode Huawei + JSON `extra_step` | **Form-based**, 7 preset (Huawei, Raisecom, ZTE, Fiberhome, Nokia, Mikrotik, Generic), bisa diatur admin tanpa coding |
+| Multi-vendor | Hardcode Huawei + JSON `extra_step` | **Form-based**, 8 preset (Huawei, Raisecom, ZTE, BDCOM, Fiberhome, Nokia, Mikrotik, Generic), bisa diatur admin tanpa coding |
 | Tipe device | OLT saja | OLT, FDT, FAT |
 | Edit data | Hanya tambah/hapus | **Edit penuh** untuk Devices, Buttons, Users (log activity tetap read-only) |
 | Password user | Hanya hash, tidak bisa dilihat admin | Hash tetap dipakai untuk login + **plaintext ter-enkripsi AES-256 GCM** untuk fitur view & change (admin re-auth) |
@@ -201,7 +201,7 @@ Field utama: <ref_file file="/home/ubuntu/repos/Application_NOC_ICONNET_SBU_REGI
 
 ## 6. Vendor Preset Bawaan
 
-Disimpan di `backend/Services/VendorPresets.cs`. Sekarang ada 7 preset; tinggal
+Disimpan di `backend/Services/VendorPresets.cs`. Sekarang ada 8 preset; tinggal
 tambah entry di dictionary kalau ada vendor baru.
 
 | Vendor | EnableCommand | Paging Trigger | Paging Response | Disable Paging | Catatan |
@@ -209,6 +209,7 @@ tambah entry di dictionary kalau ada vendor baru.
 | huawei | `enable` | `{ <cr>` | `\n` | — | Default v1 |
 | raisecom | `ena` (+pass) | `--More--` | ` ` (space) | `terminal length 0` | Banner `Press 'RETURN'` setelah connect |
 | zte | `enable` | `--More--` | ` ` | `terminal length 0` | |
+| bdcom | *(kosong)* | `--More--` | ` ` (space) | `terminal length 0` | Langsung privileged setelah login |
 | fiberhome | `enable` | `Press any key` | `\n` | `screen-length 0` | |
 | nokia | `enable` (+pass) | `Press any key` | `\n` | `environment no more` | Banner login `Username:` |
 | mikrotik | *(kosong)* | — | — | — | Tidak butuh enable; prompt `[user@host] >` |
