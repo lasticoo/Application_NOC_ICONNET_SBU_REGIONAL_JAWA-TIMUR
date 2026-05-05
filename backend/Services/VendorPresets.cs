@@ -133,7 +133,7 @@ public static class VendorPresets
         ),
 
         ["bdcom"] = new(
-            VerifyCommand:       "h {keyword}",
+            VerifyCommand:       "",
             ConnectCommand:      "t {name}",
             LoginUserPrompts:    "Username:,username:",
             LoginPassPrompts:    "Password:,password:",
