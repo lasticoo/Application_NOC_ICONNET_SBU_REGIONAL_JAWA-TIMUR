@@ -207,7 +207,7 @@ tambah entry di dictionary kalau ada vendor baru.
 |--------|--------------|---------------|----------------|---------------|---------|
 | huawei | `enable` | `{ <cr>` | `\n` | — | Default v1 |
 | raisecom | `ena` (+pass) | `--More--` | ` ` (space) | `terminal length 0` | Banner `Press 'RETURN'` setelah connect |
-| zte | `enable` | `--More--` | ` ` | `terminal length 0` | |
+| zte | `ena` (+pass) | `--More--` | ` ` | `terminal length 0` | Enable minta password (sama dgn login) |
 | bdcom | *(kosong)* | `--More--` | ` ` (space) | `terminal length 0` | Langsung privileged setelah login |
 | fiberhome | `enable` | `Press any key` | `\n` | `screen-length 0` | |
 | nokia | `enable` (+pass) | `Press any key` | `\n` | `environment no more` | Banner login `Username:` |

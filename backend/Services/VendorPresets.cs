@@ -65,20 +65,20 @@ public static class VendorPresets
         ),
 
         ["zte"] = new(
-            VerifyCommand:       "h {keyword}",
+            VerifyCommand:       "",
             ConnectCommand:      "t {name}",
-            LoginUserPrompts:    "Username:,login:,Login:",
+            LoginUserPrompts:    "Username:,username:,Login:,login:",
             LoginPassPrompts:    "Password:,password:",
             UserModePrompts:     ">",
             EnableModePrompts:   "#",
-            EnableCommand:       "enable",
+            EnableCommand:       "ena",
             DisablePagingCommand:"terminal length 0",
             PagingTrigger:       "--More--",
             PagingResponse:      " ",
             PreCommands:         "",
             PostConnectTrigger:  "",
             PostConnectResponse: "\n",
-            Notes:               "ZTE C320/C300. Sebagian SKU langsung masuk privileged tanpa enable."
+            Notes:               "ZTE C320/C300. Enable (`ena`) minta password (sama dgn login). Sebagian SKU langsung privileged."
         ),
 
         ["fiberhome"] = new(
