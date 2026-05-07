@@ -1,15 +1,28 @@
 {
   "expo": {
-    "name": "NOC Mobile",
-    "slug": "noc-mobile",
+    "name": "NOC ICONNET Jatim",
+    "slug": "noc-iconnet-jatim",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "newArchEnabled": false,
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1e3a5f"
+    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1e3a5f"
+      },
+      "package": "com.iconnet.noc.jatim",
+      "versionCode": 1
+    },
+    "extra": {
+      "eas": {
+        "projectId": "REPLACE_AFTER_EAS_INIT"
       }
     }
   }

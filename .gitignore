@@ -1,0 +1,39 @@
+# ── .NET Backend ──────────────────────────────────────────
+backend/bin/
+backend/obj/
+backend/appsettings.*.json
+!backend/appsettings.json
+*.user
+*.suo
+
+# ── Node / React (Admin Web) ─────────────────────────────
+noc-admin/node_modules/
+noc-admin/dist/
+
+# ── Node / React Native (Mobile) ─────────────────────────
+noc-mobile/node_modules/
+noc-mobile/.expo/
+noc-mobile/android/
+noc-mobile/ios/
+
+# ── EAS Build ─────────────────────────────────────────────
+noc-mobile/google-play-service-account.json
+
+# ── IDE ───────────────────────────────────────────────────
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS ────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ── Secrets / Temp ────────────────────────────────────────
+*.env
+*.env.*
+!*.env.example
+reset.sql
